@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Ripples</title>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    main {
+      width: 100%;
+      height: 100%;
+    }
+    .anim-parallax-mouse {
+      background: url("./img/bg.jpeg") center/cover no-repeat;
+    }
+    .anim-parallax-mouse-wrapper {
+      position: relative;
+      left: -2.5%;
+      top: -2.5%;
+      width: 105%;
+      height: 105%;
+    }
+    .bg {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+  </style>
+  <body>
+    <main class="anim-parallax-mouse">
+      <div class="anim-parallax-mouse-wrapper"></div>
+    </main>
+
+    <!-- SCRIPT -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+      integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./jquery-ripple.min.js" referrerpolicy="no-referrer"></script>
+    <script src="./gsap.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".anim-parallax-mouse").ripples({
+          resolution: 700,
+          dropRadius: 25, //px
+          perturbance: 0.003,
+          interactive: true,
+        });
+        // try {
+
+        $(".anim-parallax-mouse-wrapper").ripples({
+          resolution: 128,
+          dropRadius: 10, //px
+          perturbance: 0.04,
+          interactive: false,
+        });
+        // } catch (e) {
+        //   $(".error").show().text(e);
+        // }
+
+        // $(".js-ripples-disable").on("click", function () {
+        //   $("body, main").ripples("destroy");
+        //   $(this).hide();
+        // });
+
+        // $(".js-ripples-play").on("click", function () {
+        //   $("body, main").ripples("play");
+        // });
+
+        // $(".js-ripples-pause").on("click", function () {
+        //   $("body, main").ripples("pause");
+        // });
+
+        // Automatic drops
+        setInterval(function () {
+          var $el = $("main");
+          var x = Math.random() * $el.outerWidth();
+          var y = Math.random() * $el.outerHeight();
+          var dropRadius = 20;
+          var strength = 0.04 + Math.random() * 0.04;
+
+          $el.ripples("drop", x, y, dropRadius, strength);
+        }, 1500);
+
+        // if ($(".anim-parallax-mouse").length) {
+        //   let timeout;
+        //   $(".anim-parallax-mouse").on("mousemove", function (e) {
+        //     if (timeout) clearTimeout(timeout);
+        //     setTimeout(callParallax.bind(null, e), 200);
+        //   });
+
+        //   function callParallax(e) {
+        //     parallaxIt(e, ".anim-parallax-mouse", -50);
+        //   }
+        //   function parallaxIt(e, target, movement) {
+        //     let $this = $(".anim-parallax-mouse");
+        //     let relX = e.pageX - $this.offset().left;
+        //     let relY = e.pageY - $this.offset().top;
+
+        //     TweenMax.to(target, 1, {
+        //       x: ((relX - $this.width() / 2) / $this.width()) * movement,
+        //       y: ((relY - $this.height() / 2) / $this.height()) * movement,
+        //       ease: Power2.easeOut,
+        //     });
+        //   }
+        // }
+      });
+    </script>
+  </body>
+</html>
